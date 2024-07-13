@@ -15,3 +15,7 @@ However, there are some bugs that are unfortunately beyond my control. Here are 
 Additional:
 - I recommend that you and your co-pilot first conduct a test flight to check if everything is working properly.
 - Be sure that you both have the same Panel State
+
+
+Installation Path:
+Paste it into  : C:\Users\username\AppData\Roaming\YourControls\definitions\aircraft
