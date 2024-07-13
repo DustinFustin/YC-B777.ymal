@@ -1,0 +1,6686 @@
+# Version 1.0
+
+include:
+  - definitions/modules/navigation.yaml
+  - definitions/modules/physics_rad.yaml
+  - definitions/modules/radios.yaml
+  - definitions/modules/transponder.yaml
+
+
+shared:
+  - # Trim
+    type: NumSet
+    var_name: A:RUDDER TRIM PCT
+    var_units: Position 16k
+    var_type: f64
+    event_name: RUDDER_TRIM_SET_EX1
+    unreliable: true
+  -
+    type: NumSet
+    var_name: A:ELEVATOR TRIM PCT
+    var_units: Position 16k
+    var_type: f64
+    event_name: ELEVATOR_TRIM_SET
+    unreliable: true
+  -
+    type: NumSet
+    var_name: A:AILERON TRIM PCT
+    var_units: Position 16k
+    var_type: f64
+    event_name: AILERON_TRIM_SET_EX1
+    unreliable: true
+
+  - # Slew
+    type: ToggleSwitch
+    var_name: A:IS SLEW ACTIVE
+    var_units: Bool
+    var_type: bool
+    event_name: SLEW_TOGGLE
+
+  - # YourControls Force Transfer Hotkey
+    type: ProgramActionEvent
+    event_name: TOGGLE_LAUNCH_BAR_SWITCH
+    action: TransferControls
+
+  
+  - # AIRDU
+    type: ToggleSwitch
+    var_name: L:switch_59_a
+    event_name: ROTOR_BRAKE
+    event_param: 5901
+    on_condition_value: 100
+    use_calculator: true
+  - # Thrust ASYM COMP
+    type: ToggleSwitch
+    var_name: L:switch_54_a
+    event_name: ROTOR_BRAKE
+    event_param: 5401
+    on_condition_value: 100
+    use_calculator: true
+  - #PFC Guard
+    type: ToggleSwitch
+    var_name: L:switch_56_a
+    event_name: ROTOR_BRAKE
+    event_param: 5601
+    on_condition_value: 100
+    use_calculator: true
+  - #PFC Switch
+    type: ToggleSwitch
+    var_name: L:switch_55_a
+    event_name: ROTOR_BRAKE
+    event_param: 5501
+    on_condition_value: 100
+    use_calculator: true
+  - #Battery Switch
+    type: ToggleSwitch
+    var_name: L:switch_01_a
+    event_name: ROTOR_BRAKE
+    event_param: 101
+    on_condition_value: 100
+    use_calculator: true
+  - #IFE
+    type: ToggleSwitch
+    var_name: L:switch_17_a
+    event_name: ROTOR_BRAKE
+    event_param: 1701
+    on_condition_value: 100
+    use_calculator: true
+  - #Cabin ult
+    type: ToggleSwitch
+    var_name: L:switch_18_a
+    event_name: ROTOR_BRAKE
+    event_param: 1801
+    on_condition_value: 100
+    use_calculator: true
+  - #APU GEN
+    type: ToggleSwitch
+    var_name: L:switch_02_a
+    event_name: ROTOR_BRAKE
+    event_param: 201
+    on_condition_value: 100
+    use_calculator: true
+  - # APU SWITCH
+    type: NumIncrement
+    var_name: L:switch_03_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 307
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 308
+    increment_by: 50
+    use_calculator: true
+  - #L Bus Tie
+    type: ToggleSwitch
+    var_name: L:switch_05_a
+    event_name: ROTOR_BRAKE
+    event_param: 501
+    on_condition_value: 100
+    use_calculator: true
+  - #R BUS TIE
+    type: ToggleSwitch
+    var_name: L:switch_06_a
+    event_name: ROTOR_BRAKE
+    event_param: 601
+    on_condition_value: 100
+    use_calculator: true
+  - #EXT PWR SEC (angucken)
+    type: NumSet
+    var_name: L:switch_07_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - #EXT PWR Pri (angucken)
+    type: NumSet
+    var_name: L:switch_08_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - #L MAIN 
+    type: ToggleSwitch
+    var_name: L:switch_09_a
+    event_name: ROTOR_BRAKE
+    event_param: 901
+    on_condition_value: 100
+    use_calculator: true
+  - #L MAIN 
+    type: ToggleSwitch
+    var_name: L:switch_14_a
+    event_name: ROTOR_BRAKE
+    event_param: 1401
+    on_condition_value: 100
+    use_calculator: true
+  - #L MAIN 
+    type: ToggleSwitch
+    var_name: L:switch_13_a
+    event_name: ROTOR_BRAKE
+    event_param: 1301
+    on_condition_value: 100
+    use_calculator: true
+  - #BACKUP L
+    type: ToggleSwitch
+    var_name: L:switch_11_a
+    event_name: ROTOR_BRAKE
+    event_param: 1101
+    on_condition_value: 100
+    use_calculator: true
+  - #BACKUP R
+    type: ToggleSwitch
+    var_name: L:switch_12_a
+    event_name: ROTOR_BRAKE
+    event_param: 1201
+    on_condition_value: 100
+    use_calculator: true
+  - #R MAIN
+    type: ToggleSwitch
+    var_name: L:switch_10_a
+    event_name: ROTOR_BRAKE
+    event_param: 1001
+    on_condition_value: 100
+    use_calculator: true
+  - #R MAIN
+    type: ToggleSwitch
+    var_name: L:switch_16_a
+    event_name: ROTOR_BRAKE
+    event_param: 1601
+    on_condition_value: 100
+    use_calculator: true
+  - #R MAIN
+    type: ToggleSwitch
+    var_name: L:switch_15_a
+    event_name: ROTOR_BRAKE
+    event_param: 1501
+    on_condition_value: 100
+    use_calculator: true
+  - #R MAIN
+    type: ToggleSwitch
+    var_name: L:switch_19_a
+    event_name: ROTOR_BRAKE
+    event_param: 1901
+    on_condition_value: 100
+    use_calculator: true
+  - # LEFT WIPER
+    type: NumIncrement
+    var_name: L:switch_20_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 2007
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 2008
+    increment_by: 10
+    use_calculator: true
+  - #Voice RECORDER AUTO
+    type: var
+    var_name: L:voicerec_switch
+  - #EMER LIGHTS
+    type: ToggleSwitch
+    var_name: L:switch_50_a
+    event_name: ROTOR_BRAKE
+    event_param: 5001
+    on_condition_value: 100
+    use_calculator: true
+  - #EMER LIGHTS
+    type: NumIncrement
+    var_name: L:switch_49_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 4901
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 4902
+    increment_by: 50
+    use_calculator: true
+  - #SERV
+    type: ToggleSwitch
+    var_name: L:switch_51_a
+    event_name: ROTOR_BRAKE
+    event_param: 5101
+    on_condition_value: 100
+    use_calculator: true
+  - #PASS OXYGEN guard
+    type: ToggleSwitch
+    var_name: L:switch_53_a
+    event_name: ROTOR_BRAKE
+    event_param: 5301
+    on_condition_value: 100
+    use_calculator: true
+  - #PASS OXYGEN (possible NUMSET)
+    type: NumSet
+    var_name: L:switch_52_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 5204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - #WINDOW HEAT L
+    type: ToggleSwitch
+    var_name: L:switch_45_a
+    event_name: ROTOR_BRAKE
+    event_param: 4501
+    on_condition_value: 100
+    use_calculator: true
+  - #WINDOW HEAT L
+    type: ToggleSwitch
+    var_name: L:switch_46_a
+    event_name: ROTOR_BRAKE
+    event_param: 4601
+    on_condition_value: 100
+    use_calculator: true
+  - #WINDOW HEAT R
+    type: ToggleSwitch
+    var_name: L:switch_47_a
+    event_name: ROTOR_BRAKE
+    event_param: 4701
+    on_condition_value: 100
+    use_calculator: true
+  - #WINDOW HEAT R
+    type: ToggleSwitch
+    var_name: L:switch_48_a
+    event_name: ROTOR_BRAKE
+    event_param: 4801
+    on_condition_value: 100
+    use_calculator: true
+  - #RAM AIR GUARD
+    type: ToggleSwitch
+    var_name: L:switch_44_a
+    event_name: ROTOR_BRAKE
+    event_param: 4401
+    on_condition_value: 100
+    use_calculator: true
+  - #RAM AIR
+    type: NumSet
+    var_name: L:switch_43_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 4304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_39_a
+    event_name: ROTOR_BRAKE
+    event_param: 3901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_40_a
+    event_name: ROTOR_BRAKE
+    event_param: 4001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_41_a
+    event_name: ROTOR_BRAKE
+    event_param: 4101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_160_a
+    event_name: ROTOR_BRAKE
+    event_param: 16001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_159_a
+    event_name: ROTOR_BRAKE
+    event_param: 15901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_162_a
+    event_name: ROTOR_BRAKE
+    event_param: 16201
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_161_a
+    event_name: ROTOR_BRAKE
+    event_param: 16101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_164_a
+    event_name: ROTOR_BRAKE
+    event_param: 16401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_163_a
+    event_name: ROTOR_BRAKE
+    event_param: 16301
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_148_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 14802
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 14801
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_149_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 14802
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 14801
+    increment_by: 50
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_151_a
+    event_name: ROTOR_BRAKE
+    event_param: 15101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_150_a
+    event_name: ROTOR_BRAKE
+    event_param: 15001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_153_a
+    event_name: ROTOR_BRAKE
+    event_param: 15301
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_152_a
+    event_name: ROTOR_BRAKE
+    event_param: 15201
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_156_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 15604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_157_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 15704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_42_a
+    event_name: ROTOR_BRAKE
+    event_param: 4201
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_35_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 3507
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 3508
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_36_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 3607
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 3608
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_37_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 3707
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 3708
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_38_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 3807
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 3808
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_29_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 2907
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 2908
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_30_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 3007
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 3008
+    increment_by: 50
+    use_calculator: true
+  - # LIGHTS 
+    type: var
+    var_name: L:BL_Overhead
+  -  
+    type: var
+    var_name: L:OH_GS_FLOOD_LIGHT_CONTROL
+  -  
+    type: var
+    var_name: L:OH_GS_PANEL_LIGHT_CONTROL
+  -  
+    type: var
+    var_name: L:OH_PANEL_LIGHT_CONTROL
+  -  
+    type: var
+    var_name: L:OH_CB_LIGHT_CONTROL
+  -  
+    type: var
+    var_name: L:OH_MASTER_BRIGHT_ROTATE
+  -
+    type: ToggleSwitch
+    var_name: L:switch_27_a
+    event_name: ROTOR_BRAKE
+    event_param: 2701
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_2801_a
+    event_name: ROTOR_BRAKE
+    event_param: 280101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_22_a
+    event_name: ROTOR_BRAKE
+    event_param: 2201
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_23_a
+    event_name: ROTOR_BRAKE
+    event_param: 2301
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_24_a
+    event_name: ROTOR_BRAKE
+    event_param: 2401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_2341_a
+    event_name: ROTOR_BRAKE
+    event_param: 234101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_114_a
+    event_name: ROTOR_BRAKE
+    event_param: 11401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_115_a
+    event_name: ROTOR_BRAKE
+    event_param: 11501
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_116_a
+    event_name: ROTOR_BRAKE
+    event_param: 11601
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_117_a
+    event_name: ROTOR_BRAKE
+    event_param: 11701
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_78_a
+    event_name: ROTOR_BRAKE
+    event_param: 7801
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_77_a
+    event_name: ROTOR_BRAKE
+    event_param: 7701
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_79_a
+    event_name: ROTOR_BRAKE
+    event_param: 7901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_80_a
+    event_name: ROTOR_BRAKE
+    event_param: 8001
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_81_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 8107
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 8108
+    increment_by: 50
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_69_a
+    event_name: ROTOR_BRAKE
+    event_param: 6901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_70_a
+    event_name: ROTOR_BRAKE
+    event_param: 7001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_71_a
+    event_name: ROTOR_BRAKE
+    event_param: 7101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_72_a
+    event_name: ROTOR_BRAKE
+    event_param: 7201
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_74_a
+    event_name: ROTOR_BRAKE
+    event_param: 7401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_75_a
+    event_name: ROTOR_BRAKE
+    event_param: 7501
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_60_a
+    event_name: ROTOR_BRAKE
+    event_param: 6001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_61_a
+    event_name: ROTOR_BRAKE
+    event_param: 6101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_63_a
+    event_name: ROTOR_BRAKE
+    event_param: 6301
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_64_a
+    event_name: ROTOR_BRAKE
+    event_param: 6401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_66_a
+    event_name: ROTOR_BRAKE
+    event_param: 6601
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_67_a
+    event_name: ROTOR_BRAKE
+    event_param: 6701
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_82_a
+    event_name: ROTOR_BRAKE
+    event_param: 8201
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_118_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 11802
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 11801
+    increment_by: 50
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_119_a
+    event_name: ROTOR_BRAKE
+    event_param: 11901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_120_a
+    event_name: ROTOR_BRAKE
+    event_param: 12001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_1201_a
+    event_name: ROTOR_BRAKE
+    event_param: 120101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_121_a
+    event_name: ROTOR_BRAKE
+    event_param: 12101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_122_a
+    event_name: ROTOR_BRAKE
+    event_param: 12201
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_85_a
+    event_name: ROTOR_BRAKE
+    event_param: 8501
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_86_a
+    event_name: ROTOR_BRAKE
+    event_param: 8601
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_89_a
+    event_name: ROTOR_BRAKE
+    event_param: 8901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_88_a
+    event_name: ROTOR_BRAKE
+    event_param: 8801
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_87_a
+    event_name: ROTOR_BRAKE
+    event_param: 8701
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_91_a
+    event_name: ROTOR_BRAKE
+    event_param: 9101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_90_a
+    event_name: ROTOR_BRAKE
+    event_param: 9001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_93_a
+    event_name: ROTOR_BRAKE
+    event_param: 9301
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_92_a
+    event_name: ROTOR_BRAKE
+    event_param: 9201
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_94_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 9407
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 9408
+    increment_by: 100
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_95_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 9507
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 9508
+    increment_by: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_96_a
+    event_name: ROTOR_BRAKE
+    event_param: 9601
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_98_a
+    event_name: ROTOR_BRAKE
+    event_param: 9801
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_97_a
+    event_name: ROTOR_BRAKE
+    event_param: 9701
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_100_a
+    event_name: ROTOR_BRAKE
+    event_param: 10001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_99_a
+    event_name: ROTOR_BRAKE
+    event_param: 9901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_1011_a
+    event_name: ROTOR_BRAKE
+    event_param: 101101
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: var
+    var_name: L:FuelToRemainRotate
+  -
+    type: ToggleSwitch
+    var_name: L:switch_102_a
+    event_name: ROTOR_BRAKE
+    event_param: 10201
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_103_a
+    event_name: ROTOR_BRAKE
+    event_param: 10301
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_105_a
+    event_name: ROTOR_BRAKE
+    event_param: 10501
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_107_a
+    event_name: ROTOR_BRAKE
+    event_param: 10701
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_108_a
+    event_name: ROTOR_BRAKE
+    event_param: 10801
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_104_a
+    event_name: ROTOR_BRAKE
+    event_param: 10401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_106_a
+    event_name: ROTOR_BRAKE
+    event_param: 10601
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_109_a
+    event_name: ROTOR_BRAKE
+    event_param: 10901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_110_a
+    event_name: ROTOR_BRAKE
+    event_param: 11001
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_111_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 11107
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 11108
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_112_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 11207
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 11208
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_113_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 11307
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 11308
+    increment_by: 50
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_144_a
+    event_name: ROTOR_BRAKE
+    event_param: 14401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_142_a
+    event_name: ROTOR_BRAKE
+    event_param: 14201
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_143_a
+    event_name: ROTOR_BRAKE
+    event_param: 14301
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_145_a
+    event_name: ROTOR_BRAKE
+    event_param: 14501
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: var
+    var_name: L:FLTDeckTempKnob
+  -  
+    type: NumSet
+    var_name: L:switch_141_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 14104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: var
+    var_name: L:CABINTempKnob
+  -
+    type: ToggleSwitch
+    var_name: L:switch_135_a
+    event_name: ROTOR_BRAKE
+    event_param: 13501
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_137_a
+    event_name: ROTOR_BRAKE
+    event_param: 13701
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_138_a
+    event_name: ROTOR_BRAKE
+    event_param: 13801
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_136_a
+    event_name: ROTOR_BRAKE
+    event_param: 13601
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_132_a
+    event_name: ROTOR_BRAKE
+    event_param: 13201
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_133_a
+    event_name: ROTOR_BRAKE
+    event_param: 13301
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_134_a
+    event_name: ROTOR_BRAKE
+    event_param: 13401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_129_a
+    event_name: ROTOR_BRAKE
+    event_param: 12901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_131_a
+    event_name: ROTOR_BRAKE
+    event_param: 13101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_130_a
+    event_name: ROTOR_BRAKE
+    event_param: 13001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_127_a
+    event_name: ROTOR_BRAKE
+    event_param: 12701
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_128_a
+    event_name: ROTOR_BRAKE
+    event_param: 12801
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_1261_a
+    event_name: ROTOR_BRAKE
+    event_param: 126101
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: var
+    var_name: L:LDGALTRotate
+  -
+    type: ToggleSwitch
+    var_name: L:switch_124_a
+    event_name: ROTOR_BRAKE
+    event_param: 12401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_125_a
+    event_name: ROTOR_BRAKE
+    event_param: 12501
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_123_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 12307
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 12308
+    increment_by: 10
+    use_calculator: true
+  - #Middel Pannel
+    type: NumSet
+    var_name: L:switch_165_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 16504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_166_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 16602
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 16601
+    increment_by: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_167_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 16704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_177_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 17704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_178_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 17804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_179_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 17904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_180_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 18004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_181_a
+    event_name: ROTOR_BRAKE
+    event_param: 18101
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_183_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 18304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_500_b
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 50004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_504_b
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 50404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_184_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 18401
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 18402
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: var
+    var_name: L:CAMinsKnob
+  -
+    type: NumSet
+    var_name: L:switch_193_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 19304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_194_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 19404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_185_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 18502
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 18501
+    increment_by: 10
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_186_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 18604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_187_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 18702
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 18701
+    increment_by: 10
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_188_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 18804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: var
+    var_name: L:CABaroKnob
+  -
+    type: ToggleSwitch
+    var_name: L:switch_190_a
+    event_name: ROTOR_BRAKE
+    event_param: 19001
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_189_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 18901
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 18902
+    increment_by: 50
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_192_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 19204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_195_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 19504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_196_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 19604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_197_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 19704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_198_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 19804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_199_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 19904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_200_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 20004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_201_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 20104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - # Autpilotpanel
+    type: NumSet
+    var_name: L:switch_203_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 20304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_202_a
+    event_name: ROTOR_BRAKE
+    event_param: 20201
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_204_a
+    event_name: ROTOR_BRAKE
+    event_param: 20401
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_205_a
+    event_name: ROTOR_BRAKE
+    event_param: 20501
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_206_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 20604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_207_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 20704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_500_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 50004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_504_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 50404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_211_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 21104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_212_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 21204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_213_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 21304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_214_a
+    event_name: ROTOR_BRAKE
+    event_param: 21401
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_219_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 21904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_223_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 22304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_226_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 22604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_227_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 22704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_228_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 22804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_229_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 22904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_230_a
+    event_name: ROTOR_BRAKE
+    event_param: 23001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:ngx_SPDwindow
+    var_units: Number
+    var_type: f64
+    event_name: "#84132"
+    is_user_event: true
+  -  
+    type: NumSet
+    var_name: L:switch_2100_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 210004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_2181_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 218102
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 218101
+    increment_by: 10
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:ngx_HDGwindow
+    var_units: Number
+    var_type: f64
+    event_name: "#84133"
+    is_user_event: true
+  -
+    type: NumSet
+    var_name: L:ngx_VSwindow
+    var_units: Number
+    var_type: f64
+    event_name: "#84134"
+    is_user_event: true
+  -  
+    type: NumSet
+    var_name: L:switch_2100_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 210004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_225_a
+    event_name: ROTOR_BRAKE
+    event_param: 22501
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:ngx_ALTwindow
+    var_units: Number
+    var_type: f64
+    event_name: "#84134"
+    is_user_event: true
+  - 
+    type: NumSet
+    var_name: L:switch_208_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 20804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_216_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 21604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_218_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 21804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_2251_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 225104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_220_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 22004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - #RIGHT CDU 
+    type: NumSet
+    var_name: L:switch_231_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 23104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_233_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 23304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_232_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 23204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_234_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 23404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_235_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 23504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_810_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 81004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_811_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 81104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_812_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 81204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_813_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 81304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_814_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 81404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_815_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 81501
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 81502
+    increment_by: 1
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_816_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 81604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_236_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 23604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_237_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 23704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_238_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 23804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_239_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 23904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_240_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 24004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_241_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 24104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_242_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 24204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_245_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 24504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_246_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 24604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_247_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 24704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_248_a
+    event_name: ROTOR_BRAKE
+    event_param: 24801
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_250_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 25004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: ToggleSwitch
+    var_name: L:switch_257_a
+    event_name: ROTOR_BRAKE
+    event_param: 25701
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_260_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_261_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_251_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 25101
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 25102
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_256_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 25601
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 25602
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: var
+    var_name: L:FOMinsKnob
+  -  
+    type: var
+    var_name: L:FOBaroKnob
+  -
+    type: NumSet
+    var_name: L:switch_183_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 18304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_259_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 25904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_253_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 25304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_255_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 25504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_252_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 25202
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 25201
+    increment_by: 10
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_254_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 25402
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 25401
+    increment_by: 10
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_262_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_263_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_264_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_265_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_266_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_267_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_268_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_272_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 27204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_269_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 26904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_270_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 27004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_271_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 27104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_273_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 27304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_274_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 27402
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 27401
+    increment_by: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_275_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 27504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  #HEATERS / Lights
+    type: var
+    var_name: L:LEFT_SHOULDER_HEATER
+  -  
+    type: NumIncrement
+    var_name: L:switch_319_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 31907
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 31908
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: var
+    var_name: L:BL_MainCA
+  - 
+    type: var
+    var_name: L:LEFT_OUTBD_BRIGHT_CONTROL
+  - 
+    type: var
+    var_name: L:LEFT_INBD_BRIGHT_CONTROL
+  - 
+    type: var
+    var_name: L:LEFT_INBD_TERR_BRIGHT_CONTROL
+  - 
+    type: var
+    var_name: L:LEFT_PANEL_LIGHT_CONTROL
+  - 
+    type: var
+    var_name: L:LEFT_FLOOD_LIGHT_CONTROL
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_168_a
+    event_name: ROTOR_BRAKE
+    event_param: 16801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_169_a
+    event_name: ROTOR_BRAKE
+    event_param: 16901
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_170_a
+    event_name: ROTOR_BRAKE
+    event_param: 17001
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_1107_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 110704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_1105_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 110504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_1063_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 106304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_1108_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 110804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_1106_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 110604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_1066_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 106604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_171_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 17104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - # M 
+    type: ToggleSwitch
+    var_name: L:switch_172_a
+    event_name: ROTOR_BRAKE
+    event_param: 17201
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_1721_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 172104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_173_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 17307
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 17308
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_174_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 17407
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 17408
+    increment_by: 10
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_315_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 31507
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 31508
+    increment_by: 10
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_314_a
+    event_name: ROTOR_BRAKE
+    event_param: 31401
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_313_a
+    event_name: ROTOR_BRAKE
+    event_param: 31301
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_292_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 29207
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 29208
+    increment_by: 10
+    use_calculator: true
+  - # M
+    type: ToggleSwitch
+    var_name: L:switch_295_a
+    event_name: ROTOR_BRAKE
+    event_param: 29501
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_294_a
+    event_name: ROTOR_BRAKE
+    event_param: 29401
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_293_a
+    event_name: ROTOR_BRAKE
+    event_param: 29301
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_296_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 29604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_298_a
+    event_name: ROTOR_BRAKE
+    event_param: 29801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_297_a
+    event_name: ROTOR_BRAKE
+    event_param: 29701
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_302_a
+    event_name: ROTOR_BRAKE
+    event_param: 30201
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_301_a
+    event_name: ROTOR_BRAKE
+    event_param: 30101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_300_a
+    event_name: ROTOR_BRAKE
+    event_param: 30001
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_299_a
+    event_name: ROTOR_BRAKE
+    event_param: 29901
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_303_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 30304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_291_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 29107
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 29108
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_290_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 29007
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 29008
+    increment_by: 10
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_279_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 27904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_281_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 28107
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 28108
+    increment_by: 50
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_282_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 28207
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 28208
+    increment_by: 10
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_280_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 28004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_280_a
+    event_name: ROTOR_BRAKE
+    event_param: 28001
+    on_condition_value: 100
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:switch_2802_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 280204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_276_a
+    event_name: ROTOR_BRAKE
+    event_param: 27601
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_277_a
+    event_name: ROTOR_BRAKE
+    event_param: 27701
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_278_a
+    event_name: ROTOR_BRAKE
+    event_param: 27801
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_288_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 28807
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 28808
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: var
+    var_name: L:BL_MainFO
+  - 
+    type: var
+    var_name: L:RIGHT_SHOULDER_HEATER
+  - 
+    type: var
+    var_name: L:RIGHT_FLOOD_LIGHT_CONTROL
+  - 
+    type: var
+    var_name: L:RIGHT_PANEL_LIGHT_CONTROL
+  - 
+    type: var
+    var_name: L:RIGHT_INBD_BRIGHT_CONTROL
+  - 
+    type: var
+    var_name: L:RIGHT_INBD_TERR_BRIGHT_CONTROL
+  - 
+    type: var
+    var_name: L:RIGHT_OUTBD_BRIGHT_CONTROL
+  - # CAP FMC
+    type: NumSet
+    var_name: L:switch_328_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 32804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_329_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 32904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_330_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_331_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_332_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_333_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_334_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_335_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_336_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_337_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_338_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_339_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 33904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_340_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_341_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_342_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_343_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_344_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumIncrement
+    var_name: L:switch_400_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 40001
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 40002
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_345_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_346_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_347_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_3471_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 347104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_348_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_349_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 34904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_350_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_351_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_352_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_353_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_354_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_355_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_356_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_357_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_358_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_359_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 35904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_360_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_361_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_362_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_363_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_364_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_365_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_366_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_367_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_368_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_369_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 36904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_370_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_371_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_372_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_373_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_374_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_375_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_376_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_377_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_378_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_379_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 37904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_380_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_381_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_382_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_383_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_384_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_385_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_386_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_387_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_388_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_389_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 38904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_390_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 39004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_391_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 39104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_392_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 39204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_393_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 39304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_394_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 39404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_395_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 39504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_478_a
+    event_name: ROTOR_BRAKE
+    event_param: 47801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_479_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 47904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: var
+    var_name: L:BL_Pedestal
+  -
+    type: var
+    var_name: L:PED_UPPER_BRIGHT_CONTROL
+  -
+    type: var
+    var_name: L:PED_LOWER_TERR_BRIGHT_CONTROL
+  -
+    type: var
+    var_name: L:PED_LOWER_BRIGHT_CONTROL
+  - 
+    type: NumSet
+    var_name: L:switch_401_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 40104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_402_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 40204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_403_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 40304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_404_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 40404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_405_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 40504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_406_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 40604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_407_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 40704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_408_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 40804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_409_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 40904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_410_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_411_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_412_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_413_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_414_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_415_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_416_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_417_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_418_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_419_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 41904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_420_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_4201_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 420104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_421_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_422_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_423_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_424_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_425_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_426_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumIncrement
+    var_name: L:switch_473_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 47301
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 47302
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_427_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_428_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_429_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 42904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_430_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_431_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_432_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_433_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_434_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_435_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_436_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_437_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_438_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_439_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 43904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_440_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_441_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_442_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_443_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_444_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_445_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_446_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_447_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_448_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_449_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 44904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_450_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_451_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_452_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_453_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_454_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_455_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_456_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_457_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_458_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_459_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 45904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_460_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 46004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_461_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 46104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_462_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 46204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_463_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 46304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_464_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 46404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_465_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 46504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_467_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 46704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_468_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 46804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_482_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 48204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_483_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 48304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_484_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 48404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_489_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 48904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_490_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 49004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_491_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 49104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - # Speed Brake Lever
+    type: NumSet
+    var_name: L:switch_498_a
+    var_units: Number
+    var_type: f64
+    multiply_by: 78.6
+    add_by: -16384
+    event_name: AXIS_SPOILER_SET
+    use_calculator: true
+  - # ENG 1 Reverse Thrust Lever
+    type: ToggleSwitch
+    var_name: L:switch_503_a
+    event_name: ROTOR_BRAKE
+    event_param: 50301
+    on_condition_value: 100
+    use_calculator: true
+  - # ENG 2 Reverse Thrust Lever
+    type: ToggleSwitch
+    var_name: L:switch_499_a
+    event_name: ROTOR_BRAKE
+    event_param: 49901
+    on_condition_value: 100
+    use_calculator: true
+  - # FLAP Lever
+    type: NumSet
+    var_name: L:switch_507_a
+    var_type: f64
+    multiply_by: 538.4125
+    add_by: -14337
+    event_name: AXIS_FLAPS_SET
+    use_calculator: true
+  - # TRIM
+    type: NumIncrement
+    var_name: L:switch_496_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 49601
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 49602
+    increment_by: 50
+    use_calculator: true
+  - # Parking Brake Lever
+    type: NumSet
+    var_name: L:switch_515_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 51504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - # Left Engine Start Lever
+    type: ToggleSwitch
+    var_name: L:switch_520_a
+    event_name: ROTOR_BRAKE
+    event_param: 52001
+    on_condition_value: 100
+    use_calculator: true
+  - # Right Engine Start Lever
+    type: ToggleSwitch
+    var_name: L:switch_521_a
+    event_name: ROTOR_BRAKE
+    event_param: 52101
+    on_condition_value: 100
+    use_calculator: true
+  -  
+    type: NumIncrement
+    var_name: L:switch_512_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 51207
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 51208
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_511_a
+    event_name: ROTOR_BRAKE
+    event_param: 51101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_516_a
+    event_name: ROTOR_BRAKE
+    event_param: 51601
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_518_a
+    event_name: ROTOR_BRAKE
+    event_param: 51801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_517_a
+    event_name: ROTOR_BRAKE
+    event_param: 51701
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_519_a
+    event_name: ROTOR_BRAKE
+    event_param: 51701
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_510_a
+    event_name: ROTOR_BRAKE
+    event_param: 51001
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_525_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 52502
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 52501
+    increment_by: 1
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_529_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 52904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_530_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_531_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_532_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_533_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_534_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_535_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_536_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_537_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_538_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_539_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 53904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_540_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 54004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_541_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 54104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_548_a
+    event_name: ROTOR_BRAKE
+    event_param: 54801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_549_a
+    event_name: ROTOR_BRAKE
+    event_param: 54901
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_550_a
+    event_name: ROTOR_BRAKE
+    event_param: 55001
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_551_a
+    event_name: ROTOR_BRAKE
+    event_param: 55101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_552_a
+    event_name: ROTOR_BRAKE
+    event_param: 55201
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_553_a
+    event_name: ROTOR_BRAKE
+    event_param: 55301
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_555_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 55504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_556_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 55604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_557_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 55704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_554_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 55402
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 55401
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_558_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 55804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_565_a
+    event_name: ROTOR_BRAKE
+    event_param: 56501
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_566_a
+    event_name: ROTOR_BRAKE
+    event_param: 56601
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_567_a
+    event_name: ROTOR_BRAKE
+    event_param: 56701
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_568_a
+    event_name: ROTOR_BRAKE
+    event_param: 56801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_564_a
+    event_name: ROTOR_BRAKE
+    event_param: 56401
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_569_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 56902
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 56901
+    increment_by: 10
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_571_a
+    event_name: ROTOR_BRAKE
+    event_param: 57101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_572_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 57202
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 57201
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_573_a
+    event_name: ROTOR_BRAKE
+    event_param: 57301
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_575_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 57502
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 57501
+    increment_by: 10
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_576_a
+    event_name: ROTOR_BRAKE
+    event_param: 57601
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_577_a
+    event_name: ROTOR_BRAKE
+    event_param: 57701
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_578_a
+    event_name: ROTOR_BRAKE
+    event_param: 57801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_579_a
+    event_name: ROTOR_BRAKE
+    event_param: 57901
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_580_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 58004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_581_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 58102
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 58101
+    increment_by: 1
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_582_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 58202
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 58201
+    increment_by: 1
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_583_a
+    event_name: ROTOR_BRAKE
+    event_param: 58301
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_584_a
+    event_name: ROTOR_BRAKE
+    event_param: 58401
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_585_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 58504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_586_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 58602
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 58601
+    increment_by: 1
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_587_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 58702
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 58701
+    increment_by: 1
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_588_a
+    event_name: ROTOR_BRAKE
+    event_param: 58801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_589_a
+    event_name: ROTOR_BRAKE
+    event_param: 58901
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_590_a
+    event_name: ROTOR_BRAKE
+    event_param: 59001
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_591_a
+    event_name: ROTOR_BRAKE
+    event_param: 59101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_592_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 59204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_596_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 59602
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 59601
+    increment_by: 1
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_600_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_601_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_602_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_603_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_604_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_605_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_606_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_607_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_608_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_609_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 60904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_610_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 61004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_611_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 61104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_612_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 61204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_619_a
+    event_name: ROTOR_BRAKE
+    event_param: 61901
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_620_a
+    event_name: ROTOR_BRAKE
+    event_param: 62001
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_621_a
+    event_name: ROTOR_BRAKE
+    event_param: 62101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_622_a
+    event_name: ROTOR_BRAKE
+    event_param: 62201
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_623_a
+    event_name: ROTOR_BRAKE
+    event_param: 62301
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_624_a
+    event_name: ROTOR_BRAKE
+    event_param: 62401
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_626_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 62604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_627_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 62704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_628_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 62804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_629_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 62904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_625_a
+    event_name: ROTOR_BRAKE
+    event_param: 62501
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_636_a
+    event_name: ROTOR_BRAKE
+    event_param: 63601
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_637_a
+    event_name: ROTOR_BRAKE
+    event_param: 63701
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_638_a
+    event_name: ROTOR_BRAKE
+    event_param: 63801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_639_a
+    event_name: ROTOR_BRAKE
+    event_param: 63901
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_635_a
+    event_name: ROTOR_BRAKE
+    event_param: 63501
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_640_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 64002
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 64001
+    increment_by: 10
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_642_a
+    event_name: ROTOR_BRAKE
+    event_param: 64201
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_643_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 64302
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 64301
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_644_a
+    event_name: ROTOR_BRAKE
+    event_param: 64401
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_646_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 64602
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 64601
+    increment_by: 10
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_648_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 64802
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 64801
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_653_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 65304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_654_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 65404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_655_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 65504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_656_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 65604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_657_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 65704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_658_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 65804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_659_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 65904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_660_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_661_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_662_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_663_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_664_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_665_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_666_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_667_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_668_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_669_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 66904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumIncrement
+    var_name: L:switch_669_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 66901
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 66902
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_670_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_671_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_672_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_6721_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 672104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_673_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_674_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_675_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_676_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_677_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_678_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_679_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 67904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_680_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_681_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_682_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_683_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_684_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_685_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_686_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_687_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_688_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_689_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 68904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_690_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_691_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_692_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_693_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_694_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_695_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_696_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_697_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_698_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_699_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 69904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_700_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_701_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_702_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_703_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_704_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_705_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_706_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_707_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_708_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_709_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 70904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_710_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_711_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_712_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_713_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_714_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_715_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_716_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_717_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_718_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_719_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 71904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_720_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 72004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_727_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 72702
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 72701
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_729_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 72904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: var
+    var_name: L:RudderTrimKnob
+  - 
+    type: NumIncrement
+    var_name: L:switch_802_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 80202
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 80201
+    increment_by: 1
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_798_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 79804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_797_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 79704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_796_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 79604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_795_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 79504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_794_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 79404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_793_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 79304
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_792_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 79204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_791_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 79104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_790_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 79004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_789_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 78904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_788_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 78804
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_787_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 78704
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_786_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 78604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_779_a
+    event_name: ROTOR_BRAKE
+    event_param: 77901
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_778_a
+    event_name: ROTOR_BRAKE
+    event_param: 77801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_777_a
+    event_name: ROTOR_BRAKE
+    event_param: 77701
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_776_a
+    event_name: ROTOR_BRAKE
+    event_param: 77601
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_775_a
+    event_name: ROTOR_BRAKE
+    event_param: 77501
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_774_a
+    event_name: ROTOR_BRAKE
+    event_param: 77401
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_773_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 77302
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 73301
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_772_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 77204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_771_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 77104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_770_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 77004
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_769_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 76904
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_762_a
+    event_name: ROTOR_BRAKE
+    event_param: 76201
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_761_a
+    event_name: ROTOR_BRAKE
+    event_param: 76101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_760_a
+    event_name: ROTOR_BRAKE
+    event_param: 76001
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_759_a
+    event_name: ROTOR_BRAKE
+    event_param: 75901
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_763_a
+    event_name: ROTOR_BRAKE
+    event_param: 76301
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_757_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 75802
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 75801
+    increment_by: 10
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_756_a
+    event_name: ROTOR_BRAKE
+    event_param: 75601
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_755_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 75502
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 75501
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_754_a
+    event_name: ROTOR_BRAKE
+    event_param: 75401
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_755_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 75502
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 75501
+    increment_by: 10
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_7431_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 743102
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 743101
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_7432_a
+    event_name: ROTOR_BRAKE
+    event_param: 743201
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_7433_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 743302
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 743301
+    increment_by: 50
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_7434_a
+    event_name: ROTOR_BRAKE
+    event_param: 743401
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_743_a
+    event_name: ROTOR_BRAKE
+    event_param: 74301
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_751_a
+    event_name: ROTOR_BRAKE
+    event_param: 75101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_749_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 74902
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 74901
+    increment_by: 10
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_746_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 74604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_7491_a
+    event_name: ROTOR_BRAKE
+    event_param: 749101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_740_a
+    event_name: ROTOR_BRAKE
+    event_param: 74001
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_739_a
+    event_name: ROTOR_BRAKE
+    event_param: 73901
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_742_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 74204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_741_a
+    event_name: ROTOR_BRAKE
+    event_param: 74101
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_735_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 73502
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 73501
+    increment_by: 50
+    use_calculator: true
+  -
+    type: var
+    var_name: L:PED_FLOOD_LIGHT_CONTROL
+  -
+    type: var
+    var_name: L:PED_PANEL_LIGHT_CONTROL
+  - #Disches
+    type: NumSet
+    var_name: L:switch_6511_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 651104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_651_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 65102
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 65101
+    increment_by: 2
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_6521_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 652104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_652_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 65202
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 65201
+    increment_by: 2
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_8401_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 840104
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_502_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 50204
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -  
+    type: NumSet
+    var_name: L:switch_506_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 50604
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumIncrement
+    var_name: L:switch_84_a
+    var_units: Number
+    var_type: f64
+    up_event_name: ROTOR_BRAKE
+    up_event_param: 8402
+    down_event_name: ROTOR_BRAKE
+    down_event_param: 8401
+    increment_by: 2
+    use_calculator: true
+
+    
+
+  - # ECL
+    type: NumSet
+    var_name: L:switch_244_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 24404
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  -
+    type: NumSet
+    var_name: L:ECLButtonRelease
+    var_units: Number
+    var_type: f64
+    event_name: "#84134"
+    is_user_event: true
+  -
+    type: NumSet
+    var_name: L:ECLButtonPush
+    var_units: Number
+    var_type: f64
+    event_name: "#84135"
+    is_user_event: true
+  - #Extra
+    type: var
+    var_name: L:7X7X_shade_LF
+    unreliable: true
+  -
+    type: var
+    var_name: L:7X7X_shade_LR
+    unreliable: true
+  -
+    type: var
+    var_name: L:7X7X_shade_RF
+    unreliable: true
+  -
+    type: var
+    var_name: L:7X7X_shade_RR
+    unreliable: true
+  -
+    type: var
+    var_name: L:visor_L_front_drag
+    unreliable: true
+  -
+    type: var
+    var_name: L:visor_L_side_drag
+    unreliable: true
+  -
+    type: var
+    var_name: L:visor_R_front_drag
+    unreliable: true
+  -
+    type: var
+    var_name: L:visor_R_side_drag
+    unreliable: true
+  -
+    type: var
+    var_name: L:visor_L_front_stow_unstow
+  -
+    type: var
+    var_name: L:visor_R_front_stow_unstow
+  -
+    type: var
+    var_name: L:visor_L_side_stow_unstow
+  -
+    type: var
+    var_name: L:visor_R_side_stow_unstow
+  -
+    type: var
+    var_name: L:7X7X_visors_ca_stowage
+  -
+    type: var
+    var_name: L:Window_OpenClose_CA
+  -
+    type: var
+    var_name: L:WindowClipboardCA
+  -
+    type: var
+    var_name: L:WindowHandleCA
+  -
+    type: var
+    var_name: L:WindowHandleFO
+  -
+    type: var
+    var_name: L:yoke_left_hide
+  -
+    type: var
+    var_name: L:yoke_right_hide
+  -
+    type: var
+    var_name: L:tablet_pos_ca
+  -
+    type: var
+    var_name: L:WindowClipboardFO
+  -
+    type: var
+    var_name: L:Window_OpenClose_FO
+  -
+    type: var
+    var_name: L:7X7XWindowFO
+  -
+    type: var
+    var_name: L:7X7WindowCA
+  -
+    type: var
+    var_name: L:worktable_fo
+  -
+    type: var
+    var_name: L:worktable_ca
+  -
+    type: var
+    var_name: L:door_cockpit
+  -
+    type: var
+    var_name: L:tablet_pos_fo
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_1008_a
+    event_name: ROTOR_BRAKE
+    event_param: 100801
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: ToggleSwitch
+    var_name: L:switch_1006_a
+    event_name: ROTOR_BRAKE
+    event_param: 100601
+    on_condition_value: 100
+    use_calculator: true
+  - 
+    type: var
+    var_name: L:7X7X_WheelChocks
+  -
+    type: var
+    var_name: L:7X7XRightFuelJettison
+  -
+    type: var
+    var_name: L:NGXHASAntenna
+  -
+    type: var
+    var_name: L:7X7X_HSTAB_shake
+    unreliable: true
+  -
+    type: var
+    var_name: L:7X7XLeftFuelJettison
+  -
+    type: var
+    var_name: L:TPX200S_Tug_Pivot
+  -
+    type: var
+    var_name: L:7X7X_Lav_Door
+  -
+    type: var
+    var_name: L:7X7X_Water_Door
+  -
+    type: var
+    var_name: L:7X7X_Refuel_Door
+  -
+    type: var
+    var_name: L:7X7X_AirCond_Door
+  -
+    type: var
+    var_name: L:7X7X_AirStart_Door
+  -
+    type: var
+    var_name: L:7X7X_Power_Door
+  -
+    type: var
+    var_name: L:7X7X_Power_Door
+  -
+    type: var
+    var_name: L:NGXPitotCovers
+  -
+    type: var
+    var_name: L:NGXLeftEngineBlowoutDoor
+  -
+    type: var
+    var_name: L:NGXRightEngineBlowoutDoor
+  -
+    type: var
+    var_name: L:7X7X_terminalpowerconnection
+  -
+    type: var
+    var_name: L:7X7X_tailskid
+  -
+    type: var
+    var_name: L:TPU_S_Hose
+  -
+    type: var
+    var_name: L:TPU_D_Hose
+  -
+    type: var
+    var_name: L:GPU_D_Hose
+  -
+    type: var
+    var_name: L:7X7X_GPU_D
+  -
+    type: var
+    var_name: L:7X7X_GSU
+  -
+    type: var
+    var_name: L:7X7X_AirStartCart
+  -
+    type: var
+    var_name: L:7X7X_tailstand
+  -
+    type: var
+    var_name: L:7X7X_fifth_engine
+  -
+    type: var
+    var_name: L:747X_APU_exhaust
+  -
+    type: var
+    var_name: L:7X7X_ReFuel_Panel
+  -
+    type: var
+    var_name: L:747X_Lower_Deck_Forward_cargo
+  -
+    type: var
+    var_name: L:747X_Lower_Deck_Aft_cargo
+  -
+    type: var
+    var_name: L:747X_Bulk_Cargo
+  -
+    type: var
+    var_name: L:747X_Main_Cargo
+  -
+    type: var
+    var_name: L:TaxiLightsInstalled
+  -
+    type: var
+    var_name: L:Antenna_WIFI_FWD
+  -
+    type: var
+    var_name: L:Antenna_WIFI_AFT
+  -
+    type: var
+    var_name: L:Antenna_SATCOM1_FWD
+  -
+    type: var
+    var_name: L:Antenna_VHF1_FWD
+  -
+    type: var
+    var_name: L:Antenna_VHF2_AFT
+  -
+    type: var
+    var_name: L:switch_768_74X
+  -
+    type: var
+    var_name: L:7X7X_Belly_LL_Enabled
+  -
+    type: var
+    var_name: L:7X7X_scimitars_enabled
+  -
+    type: var
+    var_name: L:7X7X_winglets_enabled
+  -
+    type: var
+    var_name: L:7X7X_wingtip_enabled
+  -
+    type: var
+    var_name: L:7X7X_PIP_package
+  -
+    type: var
+    var_name: L:7X7X_nonPIP_package
+  -
+    type: var
+    var_name: L:7X7X_LED_lighting
+  -
+    type: var
+    var_name: L:7X7X_nonLED_lighting
+  -
+    type: var
+    var_name: L:TPX200S_Tug
+  -
+    type: var
+    var_name: L:7X7X_Main_Cargo
+  -
+    type: var
+    var_name: L:7X7X_Lower_Deck_Forward_Cargo
+  -
+    type: var
+    var_name: L:7X7X_Lower_Deck_Aft_Cargo
+  -
+    type: var
+    var_name: L:7X7X_Main_Cargo_25
+  -
+    type: var
+    var_name: L:7X7X_Main_Cargo_50
+  -
+    type: var
+    var_name: L:7X7X_Main_Cargo_75
+  -
+    type: var
+    var_name: L:7X7X_Main_Cargo_100
+  -
+    type: var
+    var_name: L:7X7X_Lower_Deck_Cargo_100
+  -
+    type: var
+    var_name: L:7X7X_Lower_Deck_Cargo_75
+  -
+    type: var
+    var_name: L:7X7X_Lower_Deck_Cargo_50
+  -
+    type: var
+    var_name: L:7X7X_Lower_Deck_Cargo_25
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_12
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_10
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_09
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_08
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_07
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_06
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_05
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_04
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_03
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_02
+  -
+    type: var
+    var_name: L:L:7X7X_wheelbrake_01
+  -
+    type: var
+    var_name: L:capt_headrest
+  -
+    type: var
+    var_name: L:fo_seat
+  -
+    type: var
+    var_name: L:fo_headrest
+  -
+    type: var
+    var_name: L:yoke_captain
+  -
+    type: var
+    var_name: L:yoke_fo
+  -
+    type: var
+    var_name: L:efb_inst_captain
+  -
+    type: var
+    var_name: L:efb_inst_fo
+  -
+    type: var
+    var_name: L:AirframeOptions
+  -
+    type: var
+    var_name: L:ShortFieldPlacard
+  -
+    type: var
+    var_name: L:AutoIgnitionOption
+  -
+    type: var
+    var_name: L:RMIOption
+  -
+    type: var
+    var_name: L:FuelCutoffOption
+  -
+    type: var
+    var_name: L:PressPanelOption
+  -
+    type: var
+    var_name: L:ProbeHeatLabelOption
+  -
+    type: var
+    var_name: L:NoSmokeNoElectronics
+  -
+    type: var
+    var_name: L:AuxFuelPanelOption
+  -
+    type: var
+    var_name: L:AuxBatteryOption
+  -
+    type: var
+    var_name: L:LandingLightOptions
+  -
+    type: var
+    var_name: L:AuxFuelBleedOptions
+  -
+    type: var
+    var_name: L:efb_captain
+  -
+    type: var
+    var_name: L:efb_fo
+  -
+    type: var
+    var_name: L:7X7X_Belly_LL_Disabled
+
+  - # IRS R OFF Pull?
+    type: var
+    var_name: L:switch_260_73X
+  -
+    type: NumSet
+    var_name: L:ngx_CRSwindowL
+    var_units: Number
+    var_type: f64
+    event_name: "#84132"
+    is_user_event: true
+  -
+    type: NumSet
+    var_name: L:ngx_CRSwindowR
+    var_units: Number
+    var_type: f64
+    event_name: "#84133"
+    is_user_event: true
+  -
+    type: NumSet
+    var_name: L:ngx_SPDwindow
+    var_units: Number
+    var_type: f64
+    event_name: "#84134"
+    is_user_event: true
+  -
+    type: NumSet
+    var_name: L:ngx_HDGwindow
+    var_units: Number
+    var_type: f64
+    event_name: "#84136"
+    is_user_event: true
+  -
+    type: NumSet
+    var_name: L:ngx_ALTwindow
+    var_units: Number
+    var_type: f64
+    event_name: "#84137"
+    is_user_event: true
+  - # Won't go negative - Fix this ancient crap PMDG
+    type: NumSet
+    var_name: L:ngx_VSwindow
+    var_units: Number
+    var_type: f64
+    add_by: 10000
+    event_name: "#84138"
+    is_user_event: true
+  - # Brakes
+    type: NumSet
+    var_name: A:BRAKE LEFT POSITION EX1
+    var_units: Position 32k
+    var_type: i32
+    add_by: -16384
+    event_name: AXIS_LEFT_BRAKE_SET
+    unreliable: true
+  -
+    type: NumSet
+    var_name: A:BRAKE RIGHT POSITION EX1
+    var_units: Position 32k
+    var_type: i32
+    add_by: -16384
+    event_name: AXIS_RIGHT_BRAKE_SET
+    unreliable: true
+
+master:
+  -
+    type: NumSet
+    var_name: A:GENERAL ENG THROTTLE LEVER POSITION:1
+    var_units: Position 16k
+    var_type: f64
+    event_name: THROTTLE1_SET
+    unreliable: true
+  -
+    type: NumSet
+    var_name: A:GENERAL ENG THROTTLE LEVER POSITION:2
+    var_units: Position 16k
+    var_type: f64
+    event_name: THROTTLE2_SET
+    unreliable: true
+  -
+    type: NumSet
+    var_name: A:ELEVATOR POSITION
+    var_units: Position 16k
+    var_type: f64
+    multiply_by: -1
+    event_name: AXIS_ELEVATOR_SET
+    unreliable: true
+  -
+    type: NumSet
+    var_name: A:AILERON POSITION
+    var_units: Position 16k
+    var_type: f64
+    multiply_by: -1
+    event_name: AXIS_AILERONS_SET
+    unreliable: true
+  -
+    type: NumSet
+    var_name: A:RUDDER POSITION
+    var_units: Position 16k
+    var_type: f64
+    multiply_by: -1
+    event_name: AXIS_RUDDER_SET
+    use_calculator: true
+    unreliable: true
+
+server:
+  -
+    type: var
+    var_name: A:FUEL TANK CENTER LEVEL
+    var_units: Percent
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:FUEL TANK CENTER2 LEVEL
+    var_units: Percent
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:FUEL TANK CENTER3 LEVEL
+    var_units: Percent
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:FUEL TANK RIGHT MAIN LEVEL
+    var_units: Percent
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:FUEL TANK LEFT MAIN LEVEL
+    var_units: Percent
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:1
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:2
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:3
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:4
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:5
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:6
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:7
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:8
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:9
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:10
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:11
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:12
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:13
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:14
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:15
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:16
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:17
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:18
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:19
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:20
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:21
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:22
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:23
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:24
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:25
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:26
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:27
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:28
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:29
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:30
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:31
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:32
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+  -
+    type: var
+    var_name: A:PAYLOAD STATION WEIGHT:33
+    var_units: Pounds
+    var_type: f64
+    unreliable: true
+
+ignore:
+  - PMDGTablet#efb_preferences_brightness
+  - PMDGTablet#efb_preferences_simbrief_id
+  - PMDGTablet#efb_dashboard_weather_icao
+  - PMDGTablet#efb_navigraph_searchfield
+
+  - PMDGTablet#opt_takeoff_airport_icao
+  - PMDGTablet#opt_takeoff_airport_name
+  - PMDGTablet#opt_takeoff_airport_altitude
+  - PMDGTablet#opt_takeoff_runway_length
+  - PMDGTablet#opt_takeoff_weight
+  - PMDGTablet#opt_takeoff_cg
+  - PMDGTablet#opt_takeoff_windspeed
+  - PMDGTablet#opt_takeoff_oat
+  - PMDGTablet#opt_takeoff_barometer
+
+  - PMDGTablet#opt_landingdispatch_airport_icao
+  - PMDGTablet#opt_landingdispatch_airport_name
+  - PMDGTablet#opt_landingdispatch_airport_altitude
+  - PMDGTablet#opt_landingdispatch_runway_length
+  - PMDGTablet#opt_landingdispatch_windspeed
+  - PMDGTablet#opt_landingdispatch_oat
+  - PMDGTablet#opt_landingdispatch_barometer
+
+  - PMDGTablet#opt_landingenroute_airport_icao
+  - PMDGTablet#opt_landingenroute_airport_name
+  - PMDGTablet#opt_landingenroute_airport_altitude
+  - PMDGTablet#opt_landingenroute_runway_length
+  - PMDGTablet#opt_landingenroute_weight
+  - PMDGTablet#opt_landingenroute_windspeed
+  - PMDGTablet#opt_landingenroute_oat
+  - PMDGTablet#opt_landingenroute_barometer
