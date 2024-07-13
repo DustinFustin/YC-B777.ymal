@@ -2,7 +2,7 @@ Hello dear YourControls fans
 
 The B777 is now available for YourControls. I would like to point out once again that this is my first release and I have sacrificed my free time for it, so please be kind with your feedback.
 
-If you find any bugs, please contact me on Discord: Dustin_22 or use this form:
+If you find any bugs, please contact me on Discord: Dustin_22 or use this form: https://forms.gle/3P8HY8o8WYxb5tJKA
 
 However, there are some bugs that are unfortunately beyond my control. Here are some listed:
 
@@ -13,5 +13,5 @@ However, there are some bugs that are unfortunately beyond my control. Here are 
 - PMDG B777 Tablet: "Remove Chocks" must be set or removed by each pilot individually.
 
 Additional:
-I recommend that you and your co-pilot first conduct a test flight to check if everything is working properly.
-
+- I recommend that you and your co-pilot first conduct a test flight to check if everything is working properly.
+- Be sure that you both have the same Panel State
