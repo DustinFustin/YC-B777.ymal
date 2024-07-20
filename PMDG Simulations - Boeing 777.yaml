@@ -1,4 +1,10 @@
-# Version 1.0
+# Version 1.1
+
+#Changelog - v1.1
+#- [+] Dome Light
+#- [+] Clickable pens
+#- [/] Light fixes
+#- [/] Gear lever fixes
 
 include:
   - definitions/modules/navigation.yaml
@@ -29,6 +35,7 @@ shared:
     var_type: f64
     event_name: AILERON_TRIM_SET_EX1
     unreliable: true
+  
 
   - # Slew
     type: ToggleSwitch
@@ -517,6 +524,9 @@ shared:
   -  
     type: var
     var_name: L:OH_GS_PANEL_LIGHT_CONTROL
+  -  
+    type: var
+    var_name: L:OH_DOME_SWITCH
   -  
     type: var
     var_name: L:OH_PANEL_LIGHT_CONTROL
@@ -1270,9 +1280,6 @@ shared:
     down_event_param: 18402
     increment_by: 50
     use_calculator: true
-  -  
-    type: var
-    var_name: L:CAMinsKnob
   -
     type: NumSet
     var_name: L:switch_193_a
@@ -1331,9 +1338,6 @@ shared:
     add_by: 18804
     event_name: ROTOR_BRAKE
     use_calculator: true
-  -  
-    type: var
-    var_name: L:CABaroKnob
   -
     type: ToggleSwitch
     var_name: L:switch_190_a
@@ -1730,6 +1734,22 @@ shared:
     add_by: 23404
     event_name: ROTOR_BRAKE
     use_calculator: true
+  -
+    type: var
+    var_name: L:FOBaroKnob
+    unreliable: true
+  -
+    type: var
+    var_name: L:FOMinsKnob
+    unreliable: true
+  -
+    type: var
+    var_name: L:CABaroKnob
+    unreliable: true
+  -
+    type: var
+    var_name: L:CAMinsKnob
+    unreliable: true
   - 
     type: NumSet
     var_name: L:switch_235_a
@@ -1957,12 +1977,6 @@ shared:
     down_event_param: 25602
     increment_by: 50
     use_calculator: true
-  -  
-    type: var
-    var_name: L:FOMinsKnob
-  -  
-    type: var
-    var_name: L:FOBaroKnob
   -
     type: NumSet
     var_name: L:switch_183_a
@@ -2203,22 +2217,18 @@ shared:
     on_condition_value: 100
     use_calculator: true
   - 
-    type: NumSet
+    type: ToggleSwitch
     var_name: L:switch_1107_a
-    var_units: Number
-    var_type: f64
-    multiply_by: -0.03
-    add_by: 110704
     event_name: ROTOR_BRAKE
+    event_param: 110701
+    on_condition_value: 100
     use_calculator: true
   - 
-    type: NumSet
+    type: ToggleSwitch
     var_name: L:switch_1105_a
-    var_units: Number
-    var_type: f64
-    multiply_by: -0.03
-    add_by: 110504
     event_name: ROTOR_BRAKE
+    event_param: 110501
+    on_condition_value: 100
     use_calculator: true
   - 
     type: NumSet
@@ -2230,22 +2240,18 @@ shared:
     event_name: ROTOR_BRAKE
     use_calculator: true
   - 
-    type: NumSet
+    type: ToggleSwitch
     var_name: L:switch_1108_a
-    var_units: Number
-    var_type: f64
-    multiply_by: -0.03
-    add_by: 110804
     event_name: ROTOR_BRAKE
+    event_param: 110801
+    on_condition_value: 100
     use_calculator: true
   - 
-    type: NumSet
+    type: ToggleSwitch
     var_name: L:switch_1106_a
-    var_units: Number
-    var_type: f64
-    multiply_by: -0.03
-    add_by: 110604
     event_name: ROTOR_BRAKE
+    event_param: 110601
+    on_condition_value: 100
     use_calculator: true
   - 
     type: NumSet
@@ -2340,13 +2346,13 @@ shared:
     increment_by: 10
     use_calculator: true
   - # M
-    type: ToggleSwitch
-    var_name: L:switch_295_a
-    event_name: ROTOR_BRAKE
-    event_param: 29501
-    on_condition_value: 100
-    use_calculator: true
-  - 
+#    type: ToggleSwitch
+#    var_name: L:switch_295_a
+#    event_name: ROTOR_BRAKE
+#   event_param: 29501
+#    on_condition_value: 100
+#    use_calculator: true
+  
     type: ToggleSwitch
     var_name: L:switch_294_a
     event_name: ROTOR_BRAKE
@@ -3814,6 +3820,15 @@ shared:
     var_type: f64
     multiply_by: -0.03
     add_by: 46504
+    event_name: ROTOR_BRAKE
+    use_calculator: true
+  - 
+    type: NumSet
+    var_name: L:switch_466_a
+    var_units: Number
+    var_type: f64
+    multiply_by: -0.03
+    add_by: 46604
     event_name: ROTOR_BRAKE
     use_calculator: true
   - 
@@ -5908,10 +5923,7 @@ shared:
     down_event_param: 8401
     increment_by: 2
     use_calculator: true
-
-    
-
-  - # ECL
+  - 
     type: NumSet
     var_name: L:switch_244_a
     var_units: Number
@@ -5934,6 +5946,7 @@ shared:
     var_type: f64
     event_name: "#84135"
     is_user_event: true
+
   - #Extra
     type: var
     var_name: L:7X7X_shade_LF
@@ -6026,6 +6039,15 @@ shared:
   -
     type: var
     var_name: L:tablet_pos_fo
+  -
+    type: var
+    var_name: L:pen_one
+  -
+    type: var
+    var_name: L:pen_two
+  -
+    type: var
+    var_name: L:pen_three
   - 
     type: ToggleSwitch
     var_name: L:switch_1008_a
@@ -6040,6 +6062,20 @@ shared:
     event_param: 100601
     on_condition_value: 100
     use_calculator: true
+  - # Gear up  
+    type: CustomCalculator
+    get: (L:switch_295_a) 0 ==
+    set: 1 (>K:GEAR_UP)
+    condition:
+      equals:
+        F64: 1.0
+  - # Gear down
+    type: CustomCalculator
+    get: (L:switch_295_a) 100 ==
+    set: 1 (>K:GEAR_DOWN)
+    condition:
+      equals:
+        F64: 1.0
   - 
     type: var
     var_name: L:7X7X_WheelChocks
@@ -6318,9 +6354,7 @@ shared:
     type: var
     var_name: L:7X7X_Belly_LL_Disabled
 
-  - # IRS R OFF Pull?
-    type: var
-    var_name: L:switch_260_73X
+
   -
     type: NumSet
     var_name: L:ngx_CRSwindowL
@@ -6356,7 +6390,7 @@ shared:
     var_type: f64
     event_name: "#84137"
     is_user_event: true
-  - # Won't go negative - Fix this ancient crap PMDG
+  - #
     type: NumSet
     var_name: L:ngx_VSwindow
     var_units: Number
@@ -6421,6 +6455,7 @@ master:
     event_name: AXIS_RUDDER_SET
     use_calculator: true
     unreliable: true
+
 
 server:
   -
